@@ -1,4 +1,5 @@
 ﻿using Duplicates.Interfaces;
+using System.Collections.Generic;
 
 namespace Duplicates
 {
@@ -12,8 +13,6 @@ namespace Duplicates
 
             for (int i = 0; i < length; i++)
             {
-                var chosenNumber = source[i];
-
                 for (int j = i + 1; j < length; j++)
                 {
                     if (source[i] == source[j] && j < lowestDuplicateIndex)
@@ -21,12 +20,26 @@ namespace Duplicates
                         lowestDuplicateIndex = j;
                         duplicateExist = true;
                     }
-
                 }
             }
 
             if (duplicateExist)
                 return source[lowestDuplicateIndex];
+
+            return -1;
+        }
+
+        public int FindHash(int[] source)
+        {
+            var hashSet = new HashSet<int>();
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (!hashSet.Contains(source[i]))
+                    hashSet.Add(source[i]);
+                else
+                    return source[i];
+            }
 
             return -1;
         }
